@@ -1,0 +1,19 @@
+# Rust
+target/
+**/*.rs.bak
+*.rlib
+*.d
+
+# Bootstrap toolchain (not part of the project)
+.bootstrap/
+
+# RMTP runtime data
+data/
+var/
+certs/
+*.log
+
+# Editor
+.vscode/
+.idea/
+*.swp

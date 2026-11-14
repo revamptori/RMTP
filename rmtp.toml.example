@@ -1,0 +1,45 @@
+# RMTP configuration file.
+# Copy to rmtp.toml and adjust for your deployment.
+#
+# Secrets can be provided via environment variables instead of this file:
+#   RMTP_AUTH_USERNAME, RMTP_AUTH_PASSWORD
+#   RMTP_RELAY_USERNAME, RMTP_RELAY_PASSWORD
+#
+# Never commit a file containing plaintext passwords to version control.
+
+[server]
+hostname = "smtp.example.com"
+bind = "0.0.0.0"
+port = 587
+max_connections = 500
+max_message_size = 26214400
+
+[tls]
+# STARTTLS is required when authentication is enabled.
+enabled = true
+certificate = "./certs/cert.pem"
+private_key = "./certs/key.pem"
+
+[auth]
+enabled = true
+# Require authentication from all clients.
+required = false
+username = "change-me"
+password = "change-me"
+
+[relay]
+enabled = true
+host = "smtp.upstream.com"
+port = 587
+username = "upstream-user"
+password = "upstream-password"
+# "starttls", "implicit", or "none"
+tls = "starttls"
+
+[queue]
+directory = "./data/queue"
+retry_interval = 60
+max_retries = 10
+
+[logging]
+level = "info"
