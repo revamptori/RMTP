@@ -1,0 +1,26 @@
+[Unit]
+Description=RMTP SMTP Relay
+Documentation=file:///usr/share/doc/rmtp/README.md
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/rmtp
+ExecStart=/opt/rmtp/rustsmtp start --config /opt/rmtp/rmtp.toml
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=5
+User=rmtp
+Group=rmtp
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+PrivateTmp=true
+# Allow reading certs/queue under WorkingDirectory only
+ReadWritePaths=/opt/rmtp/data /opt/rmtp/certs
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+[Install]
+WantedBy=multi-user.target
